@@ -7,9 +7,9 @@ public class Robot {
 
     public enum Direction { NORTH, SOUTH, EAST, WEST }
 
-    private Direction robotDirection;
+    private Direction direction;
 
-    private int [][] robotPosition = new int[5][5];
+    private int [][] position = new int[5][5];
 
     // Empty constructor
     public Robot(){
@@ -17,26 +17,68 @@ public class Robot {
 
     // Standard constructor
     public Robot(int [][] pos, Direction dir) {
-        this.robotDirection = dir;
-        this.robotPosition = pos;
+        this.direction = dir;
+        this.position = pos;
     }
 
-    // Getter functions
-    public Direction getRobotDirection(){
-        return robotDirection;
+    // Getter methods
+    public Direction getDirection(){
+        return direction;
     }
 
-    public int[][] getRobotPosition() {
-        return robotPosition;
+    public int[][] getPosition() {
+        return position;
     }
 
-    // Setter functions
-    public void setRobotDirection(Direction robotDirection) {
-        this.robotDirection = robotDirection;
+    // Setter methods
+    public void setDirection(Direction direction) {
+        this.direction = direction;
     }
 
-    public void setRobotPosition(int[][] robotPosition) {
-        this.robotPosition = robotPosition;
+    public void setPosition(int[][] position) {
+        this.position = position;
+    }
+
+    // Management methods
+    public void rotate(String turnDirection){
+
+        Direction currentDirection = this.getDirection();
+
+        if (turnDirection.equals("LEFT")) {
+            switch(currentDirection) {
+                case NORTH:
+                    this.setDirection(Direction.WEST);
+                    break;
+                case EAST:
+                    this.setDirection(Direction.NORTH);
+                    break;
+                case SOUTH:
+                    this.setDirection(Direction.EAST);
+                    break;
+                case WEST:
+                    this.setDirection(Direction.SOUTH);
+                    break;
+            }
+        }
+        else if (turnDirection.equals("RIGHT")){
+            switch(currentDirection) {
+                case NORTH:
+                    this.setDirection(Direction.EAST);
+                    break;
+                case EAST:
+                    this.setDirection(Direction.SOUTH);
+                    break;
+                case SOUTH:
+                    this.setDirection(Direction.WEST);
+                    break;
+                case WEST:
+                    this.setDirection(Direction.NORTH);
+                    break;
+            }
+        }
+        else {
+            System.out.println("Invalid turn direction");
+        }
     }
 
 }

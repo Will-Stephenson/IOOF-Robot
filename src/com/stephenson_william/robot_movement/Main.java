@@ -12,7 +12,15 @@ public class Main {
 
         Robot testRobot = new Robot(testPosition, testDirection);
 
-        System.out.println(testRobot.getRobotDirection());
+        System.out.println(testRobot.getDirection());
+
+        testRobot.rotate("LEFT");
+
+        System.out.println(testRobot.getDirection());
+
+        testRobot.rotate("RIGHT");
+
+        System.out.println(testRobot.getDirection());
 
     }
 }
