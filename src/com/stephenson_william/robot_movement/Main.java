@@ -14,14 +14,13 @@ public class Main {
 
         //System.out.println(testRobot.getDirection());
         testRobot.move();
-        testRobot.rotate("LEFT");
+        testRobot.rotate("RIGHT");
 
         //System.out.println(testRobot.getDirection());
         testRobot.move();
 
         testRobot.rotate("LEFT");
 
-       // System.out.println(testRobot.getDirection());
         testRobot.move();
 
     }

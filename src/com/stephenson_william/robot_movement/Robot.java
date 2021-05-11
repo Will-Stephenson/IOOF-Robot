@@ -9,7 +9,8 @@ public class Robot {
 
     private Direction direction;
 
-    private final int [][] position = new int[5][5];
+    private int xPos;
+    private int yPos;
 
     /**
      * Empty constructor for the robot
@@ -25,7 +26,8 @@ public class Robot {
      */
     public Robot(int xPos, int yPos, Direction dir) {
         this.direction = dir;
-        this.position[xPos][yPos] = 1;
+        this.xPos = xPos;
+        this.yPos = yPos;
     }
 
     /**
@@ -34,15 +36,6 @@ public class Robot {
      */
     public Direction getDirection(){
         return this.direction;
-    }
-
-    /**
-     * Get the position of the robot as an array representing the possible positions on the table
-     * [0][0] is the south west corner and [4][4] is the north east
-     * @return A 2D array representing the possible positions on the table where the index containing 1 is the current position of the robot
-     */
-    public int[][] getPosition() {
-        return this.position;
     }
 
     /**
@@ -63,7 +56,8 @@ public class Robot {
      */
     public void setPosition(int xPos, int yPos) {
         if(xPos >= 0 && xPos <=4 && yPos >= 0 && yPos <=4  ){
-            this.position[xPos][yPos] = 1;
+            this.xPos = xPos;
+            this.yPos = yPos;
         }
         else {
             System.out.println("Invalid coordinates - xPos and yPos must be between 0 -4");
@@ -123,59 +117,41 @@ public class Robot {
      * If the move will make the robot fall, it will not move and the method will exit cleanly
      */
     public void move(){
-        // Retrieve the position and direction faced by the robot
+
+        // Retrieve the direction faced by the robot
         Direction direction = this.getDirection();
-        int[][] position = this.getPosition();
 
-        int xPos = 0;
-        int yPos = 0;
-
-        // Loop through the array to determine the current coordinates of the robot
-        for(int i = 0; i < position.length; i++) {
-            for(int j = 0; j < position[i].length; j++) {
-                if (position[i][j] == 1 ){
-                    xPos = i;
-                    yPos = j;
-                    //System.out.println("\n\nStarting position");
-                    //System.out.println("xPos=" + xPos + " : yPos=" + yPos);
-                }
-            }
-        }
+        int x = this.xPos;
+        int y = this.yPos;
 
         // Execute the move if it will not cause the robot to exceed the bounds of the table
         switch(direction) {
             case NORTH:
-                if (yPos < 4) {
-                    position[xPos][yPos+1] = 1;
-                    position[xPos][yPos] = 0;
-                    yPos++;
+                if (y < 4) {
+                    y++;
                 }
                 break;
             case EAST:
-                if (xPos < 4) {
-                    position[xPos + 1][yPos] = 1;
-                    position[xPos][yPos] = 0;
-                    xPos++;
+                if (x < 4) {
+                    x++;
                 }
                 break;
             case SOUTH:
-                if (yPos > 0) {
-                    position[xPos][yPos - 1] = 1;
-                    position[xPos][yPos] = 0;
-                    yPos--;
+                if (y > 0) {
+                    y--;
                 }
                 break;
             case WEST:
-                if (xPos > 0) {
-                    position[xPos - 1][yPos] = 1;
-                    position[xPos][yPos] = 0;
-                    xPos--;
+                if (x > 0) {
+                    x++;
                 }
                 break;
         }
+        this.setPosition(x,y); // Update the robot with its new coordinates
+
 
         System.out.println("\nRobot moved " + direction);
-        System.out.println("xPos=" + xPos + " : yPos=" + yPos);
+        System.out.println("xPos=" + this.xPos + " : yPos=" + this.yPos);
 
     }
 
