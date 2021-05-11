@@ -38,6 +38,18 @@ public class Robot {
         return this.direction;
     }
 
+    public int getxPos(){
+        return this.xPos;
+    }
+
+    public int getyPos() {
+        return this.yPos;
+    }
+
+    public void report(){
+        System.out.println(this.xPos + "," + this.yPos + "," + this.direction);
+    }
+
     /**
      * Set the direction of the robot
      * @param direction The direction the robot will face
@@ -50,17 +62,17 @@ public class Robot {
     /**
      * Set the position of the robot
      * @param xPos The coordinate on the X axis the robot will be place
-     *             Must be an integer between 0 - 4
+     *             Must be an integer between 1 - 5
      * @param yPos The coordinate on the Y axis the robot will be place
-     *             Must be an integer between 0 - 4
+     *             Must be an integer between 1 - 5
      */
     public void setPosition(int xPos, int yPos) {
-        if(xPos >= 0 && xPos <=4 && yPos >= 0 && yPos <=4  ){
+        if(xPos >= 1 && xPos <=5 && yPos >= 1 && yPos <=5  ){
             this.xPos = xPos;
             this.yPos = yPos;
         }
         else {
-            System.out.println("Invalid coordinates - xPos and yPos must be between 0 -4");
+            System.out.println("Invalid coordinates - xPos and yPos must be between 1 - 5");
         }
     }
 
@@ -88,8 +100,7 @@ public class Robot {
                     this.setDirection(Direction.SOUTH);
                     break;
             }
-        }
-        else if (turnDirection.equals("RIGHT")){
+        } else if (turnDirection.equals("RIGHT")){
             switch(currentDirection) {
                 case NORTH:
                     this.setDirection(Direction.EAST);
@@ -104,11 +115,10 @@ public class Robot {
                     this.setDirection(Direction.NORTH);
                     break;
             }
-        }
-        else {
+        } else {
             System.out.println(turnDirection + " is not a valid turn direction, please use LEFT or RIGHT");
         }
-        System.out.print("\nRobot turned " + turnDirection);
+        //System.out.print("\nRobot turned " + turnDirection);
     }
 
 
@@ -127,22 +137,22 @@ public class Robot {
         // Execute the move if it will not cause the robot to exceed the bounds of the table
         switch(direction) {
             case NORTH:
-                if (y < 4) {
+                if (y < 5) {
                     y++;
                 }
                 break;
             case EAST:
-                if (x < 4) {
+                if (x < 5) {
                     x++;
                 }
                 break;
             case SOUTH:
-                if (y > 0) {
+                if (y > 1) {
                     y--;
                 }
                 break;
             case WEST:
-                if (x > 0) {
+                if (x > 1) {
                     x++;
                 }
                 break;
@@ -150,8 +160,8 @@ public class Robot {
         this.setPosition(x,y); // Update the robot with its new coordinates
 
 
-        System.out.println("\nRobot moved " + direction);
-        System.out.println("xPos=" + this.xPos + " : yPos=" + this.yPos);
+        //System.out.println("\nRobot moved " + direction);
+        //System.out.println("xPos=" + this.xPos + " : yPos=" + this.yPos);
 
     }
 
