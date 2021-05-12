@@ -8,7 +8,6 @@ import java.util.ArrayList;
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println("Please place the robot on the table");
         // If the application is run without any arguments, begin in manual control mode
         if (args.length == 0){
             controlLoop();
@@ -42,6 +41,7 @@ public class Main {
      * Runs the program and accepts direct user input
      */
     private static void controlLoop(){
+        System.out.println("Please place the robot on the table");
         Robot robot = new Robot();
         Scanner inputReader = new Scanner(System.in);
         boolean continueLoop = true;
