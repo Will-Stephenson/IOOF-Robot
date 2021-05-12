@@ -5,6 +5,8 @@ package com.stephenson_william.robot_movement;
  */
 public class Robot {
 
+    public static int TABLE_SIZE = 5;
+
     public enum Direction { NORTH, SOUTH, EAST, WEST }
 
     private Direction direction;
@@ -66,13 +68,14 @@ public class Robot {
      * @param yPos The coordinate on the Y axis the robot will be place
      *             Must be an integer between 1 - 5
      */
-    public void setPosition(int xPos, int yPos) {
-        if(xPos >= 1 && xPos <=5 && yPos >= 1 && yPos <=5  ){
+    public boolean setPosition(int xPos, int yPos) {
+        if(xPos >= 1 && xPos <= TABLE_SIZE && yPos >= 1 && yPos <= TABLE_SIZE){
             this.xPos = xPos;
             this.yPos = yPos;
+            return true;
         }
         else {
-            System.out.println("Invalid coordinates - xPos and yPos must be between 1 - 5");
+            return false;
         }
     }
 
@@ -131,18 +134,18 @@ public class Robot {
         // Retrieve the direction faced by the robot
         Direction direction = this.getDirection();
 
-        int x = this.xPos;
-        int y = this.yPos;
+        int x = this.getxPos();
+        int y = this.getyPos();
 
         // Execute the move if it will not cause the robot to exceed the bounds of the table
         switch(direction) {
             case NORTH:
-                if (y < 5) {
+                if (y < TABLE_SIZE) {
                     y++;
                 }
                 break;
             case EAST:
-                if (x < 5) {
+                if (x < TABLE_SIZE) {
                     x++;
                 }
                 break;

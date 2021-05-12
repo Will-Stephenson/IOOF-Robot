@@ -33,19 +33,25 @@ public class Main {
         boolean continueLoop = true;
         while(continueLoop){
             String input = inputReader.nextLine();
-            String[] command = input.split(" "); // Divide up the input into an array separating
+            String[] command = input.split(" "); // Divides up the input into an array, separating the command from the arguments
             switch (command[0]){
                 case "PLACE":
-                    // Ensure the user has entered the PLACE command with correctly formatted arguments
-                    if (command.length == 2){
+                    // Attempts to divide up the arguments into another array
+                    // This will also catch cases where the arguments are provided in the wrong order
+                    // If it is successful it will set the initial position and direction of the robot
+                    try{
                         String[] args = command[1].split( ",");
-                        robot.setPosition(Integer.parseInt(args[0]),Integer.parseInt(args[1]));
-                        robot.setDirection(Robot.Direction.valueOf(args[2]));
-                    } else  {
+                        // Only set the direction if the robot is placed in a valid position
+                        // This prevents the robot being initialised with 0,0 for its position
+                        if(robot.setPosition(Integer.parseInt(args[0]),Integer.parseInt(args[1]))){
+                            robot.setDirection(Robot.Direction.valueOf(args[2]));
+                        } else {
+                            System.out.println("The robot's X and Y coordinates must be between 1-" + Robot.TABLE_SIZE);
+                        }
+                    } catch (Exception e)  {
                         System.out.println("PLACE must be followed by coordinates and a direction");
                         System.out.println("For example: PLACE 1,2,NORTH");
                     }
-
                     break;
                 case "MOVE":
                     if (robot.getDirection() == null){
