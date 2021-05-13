@@ -6,7 +6,6 @@ package com.stephenson_william.robot_movement;
 public class Robot {
 
     public static int TABLE_SIZE = 5;
-    //public enum Direction { NORTH, SOUTH, EAST, WEST }
 
     private CardinalDirection cardinalDirection;
 
