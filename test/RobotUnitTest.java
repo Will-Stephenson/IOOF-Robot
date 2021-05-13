@@ -15,27 +15,6 @@ class RobotUnitTest {
     }
 
     @Test
-    void getDirection() {
-        Assertions.assertEquals(CardinalDirection.NORTH,testRobot.getDirection());
-    }
-
-    @Test
-    void getxPos() {
-        Assertions.assertEquals(1,testRobot.getxPos());
-    }
-
-    @Test
-    void getyPos() {
-        Assertions.assertEquals(2,testRobot.getyPos());
-    }
-
-    @Test
-    void setDirection() {
-        testRobot.setDirection(CardinalDirection.EAST);
-        Assertions.assertEquals(CardinalDirection.EAST,testRobot.getDirection());
-    }
-
-    @Test
     void setPosition() {
         testRobot.setPosition(4,3);
         Assertions.assertEquals(4,testRobot.getxPos());
