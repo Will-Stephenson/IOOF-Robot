@@ -12,16 +12,25 @@ public class Main {
         if (args.length == 0){
             controlLoop();
         } else {
+            // Ensure the file extension is .txt or don't attempt to read it
             ArrayList<String> inputList = new ArrayList<>();
-            try{
-                File inputFile = new File(args[0]);
-                Scanner fileReader = new Scanner(inputFile);
-                while (fileReader.hasNextLine()) {
-                    inputList.add(fileReader.nextLine());
+            String fileName = args[0];
+            String fileExtension = fileName.substring(fileName.indexOf('.'));
+            if (fileExtension.equals(".txt")) {
+                try {
+                    // Attempt to open the file and read it into an Array List
+                    File inputFile = new File(fileName);
+                    Scanner fileReader = new Scanner(inputFile);
+                    while (fileReader.hasNextLine()) {
+                        inputList.add(fileReader.nextLine());
+                    }
+                    // Begin automatically running the program
+                    autoLoop(inputList);
+                } catch (FileNotFoundException e) {
+                    System.out.println("File " + fileName + " not found");
                 }
-                autoLoop(inputList);
-            } catch (FileNotFoundException e) {
-                System.out.println("File not found");
+            } else {
+                System.out.println("Please provide input in a .txt file");
             }
         }
     }
@@ -30,7 +39,7 @@ public class Main {
      * Runs the program automatically from file input
      * @param input an ArrayList of each command from the file
      */
-    public static void autoLoop(ArrayList<String> input){
+    private static void autoLoop(ArrayList<String> input){
         Robot robot = new Robot();
         for(String i: input){
             parseInput(robot, i);
@@ -57,7 +66,7 @@ public class Main {
      * @param input the command to be parsed and executes
      * @return the boolean which determines if the control loops terminate
      */
-    private static boolean parseInput(Robot robot, String input) {
+    public static boolean parseInput(Robot robot, String input) {
         String[] command = input.split(" "); // Divides up the input into an array, separating the command from the arguments
         boolean continueLoop = true;
         switch (command[0]){
@@ -70,7 +79,7 @@ public class Main {
                     // Only set the direction if the robot is placed in a valid position
                     // This prevents the robot being initialised with 0,0 for its position
                     if(robot.setPosition(Integer.parseInt(commandArgs[0]),Integer.parseInt(commandArgs[1]))){
-                        robot.setDirection(Robot.Direction.valueOf(commandArgs[2]));
+                        robot.setDirection(CardinalDirection.valueOf(commandArgs[2]));
                     } else {
                         System.out.println("The robot's X and Y coordinates must be between 1-" + Robot.TABLE_SIZE);
                     }
@@ -97,14 +106,14 @@ public class Main {
                 if (robot.getDirection() == null){
                     System.out.println("Please place the robot first");
                 } else {
-                    robot.rotate("LEFT");
+                    robot.rotate(Direction.LEFT);
                 }
                 break;
             case "RIGHT":
                 if (robot.getDirection() == null){
                     System.out.println("Please place the robot first");
                 } else {
-                    robot.rotate("RIGHT");
+                    robot.rotate(Direction.RIGHT);
                 }
                 break;
             case "EXIT":

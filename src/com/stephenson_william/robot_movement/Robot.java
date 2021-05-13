@@ -6,10 +6,9 @@ package com.stephenson_william.robot_movement;
 public class Robot {
 
     public static int TABLE_SIZE = 5;
+    //public enum Direction { NORTH, SOUTH, EAST, WEST }
 
-    public enum Direction { NORTH, SOUTH, EAST, WEST }
-
-    private Direction direction;
+    private CardinalDirection cardinalDirection;
 
     private int xPos;
     private int yPos;
@@ -26,8 +25,8 @@ public class Robot {
      * @param yPos the Y coordinate of the robot
      * @param dir the direction the robot will initially be facing
      */
-    public Robot(int xPos, int yPos, Direction dir) {
-        this.direction = dir;
+    public Robot(int xPos, int yPos, CardinalDirection dir) {
+        this.cardinalDirection = dir;
         this.xPos = xPos;
         this.yPos = yPos;
     }
@@ -36,8 +35,8 @@ public class Robot {
      * Get the direction the robot is currently facing
      * @return A Direction ( North , EAST, SOUTH, WEST )
      */
-    public Direction getDirection(){
-        return this.direction;
+    public CardinalDirection getDirection(){
+        return this.cardinalDirection;
     }
 
     public int getxPos(){
@@ -49,16 +48,16 @@ public class Robot {
     }
 
     public void report(){
-        System.out.println(this.xPos + "," + this.yPos + "," + this.direction);
+        System.out.println(this.xPos + "," + this.yPos + "," + this.cardinalDirection);
     }
 
     /**
      * Set the direction of the robot
-     * @param direction The direction the robot will face
+     * @param cardinalDirection The direction the robot will face
      *                  Must be a Direction ( North , EAST, SOUTH, WEST )
      */
-    public void setDirection(Direction direction) {
-        this.direction = direction;
+    public void setDirection(CardinalDirection cardinalDirection) {
+        this.cardinalDirection = cardinalDirection;
     }
 
     /**
@@ -84,44 +83,43 @@ public class Robot {
      * @param turnDirection The direction the robot will turn
      *                      Must be either LEFT or RIGHT
      */
-    public void rotate(String turnDirection){
+    public void rotate(Direction turnDirection){
 
-        Direction currentDirection = this.getDirection();
+        CardinalDirection cardinalDirection = this.getDirection();
 
-        if (turnDirection.equals("LEFT")) {
-            switch(currentDirection) {
+        if (turnDirection == Direction.LEFT) {
+            switch(cardinalDirection) {
                 case NORTH:
-                    this.setDirection(Direction.WEST);
+                    this.setDirection(CardinalDirection.WEST);
                     break;
                 case EAST:
-                    this.setDirection(Direction.NORTH);
+                    this.setDirection(CardinalDirection.NORTH);
                     break;
                 case SOUTH:
-                    this.setDirection(Direction.EAST);
+                    this.setDirection(CardinalDirection.EAST);
                     break;
                 case WEST:
-                    this.setDirection(Direction.SOUTH);
+                    this.setDirection(CardinalDirection.SOUTH);
                     break;
             }
-        } else if (turnDirection.equals("RIGHT")){
-            switch(currentDirection) {
+        } else if (turnDirection == Direction.RIGHT){
+            switch(cardinalDirection) {
                 case NORTH:
-                    this.setDirection(Direction.EAST);
+                    this.setDirection(CardinalDirection.EAST);
                     break;
                 case EAST:
-                    this.setDirection(Direction.SOUTH);
+                    this.setDirection(CardinalDirection.SOUTH);
                     break;
                 case SOUTH:
-                    this.setDirection(Direction.WEST);
+                    this.setDirection(CardinalDirection.WEST);
                     break;
                 case WEST:
-                    this.setDirection(Direction.NORTH);
+                    this.setDirection(CardinalDirection.NORTH);
                     break;
             }
         } else {
             System.out.println(turnDirection + " is not a valid turn direction, please use LEFT or RIGHT");
         }
-        //System.out.print("\nRobot turned " + turnDirection);
     }
 
 
@@ -132,13 +130,13 @@ public class Robot {
     public void move(){
 
         // Retrieve the direction faced by the robot
-        Direction direction = this.getDirection();
+        CardinalDirection cardinalDirection = this.getDirection();
 
         int x = this.getxPos();
         int y = this.getyPos();
 
         // Execute the move if it will not cause the robot to exceed the bounds of the table
-        switch(direction) {
+        switch(cardinalDirection) {
             case NORTH:
                 if (y < TABLE_SIZE) {
                     y++;
@@ -161,11 +159,6 @@ public class Robot {
                 break;
         }
         this.setPosition(x,y); // Update the robot with its new coordinates
-
-
-        //System.out.println("\nRobot moved " + direction);
-        //System.out.println("xPos=" + this.xPos + " : yPos=" + this.yPos);
-
     }
 
 }
