@@ -12,8 +12,9 @@ The location of the text file can be passed as an argument.
 To run the application:
 1. Clone this repository
 2. Open a terminal
-3. Navigate to the local copy of the repository
-3. Execute `java -jar out/artifacts/IOOF_Robot_jar/IOOF-ROBOT.jar [/input/file/location/input.txt]`
+3. Navigate to the root directory of your local copy of the repository
+4. Ensure Java 11 is in your $PATH 
+5. Execute `java -jar out/artifacts/IOOF_Robot_jar/IOOF-ROBOT.jar input.txt`
 
 ## How to Use
 Place the robot to begin. The robot can move and turn on the 5x5 unit table. 
